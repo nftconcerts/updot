@@ -65,7 +65,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative flex h-screen w-full overflow-hidden">
+    <div className="relative flex h-screen w-full overflow-hidden">
       {/* Animation background */}
       <div className="absolute inset-0 z-0">
         <Animation jackpotMode={jackpotMode} setJackpotMode={setJackpotMode} />
@@ -151,6 +151,6 @@ export default function Home() {
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }
