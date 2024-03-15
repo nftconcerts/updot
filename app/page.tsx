@@ -5,7 +5,7 @@ import Animation from "@/components/Animation";
 import Link from "next/link";
 import Airdrop from "@/components/Airdrop";
 import { Connection, PublicKey } from "@solana/web3.js";
-import { connectWallet, sendSwapTransaction } from "@/lib/solana";
+// import { connectWallet, sendSwapTransaction } from "@/lib/solana";
 
 export default function Home() {
   const [publicKey, setPublicKey] = useState<PublicKey | null>(null);
@@ -43,18 +43,19 @@ export default function Home() {
 
   const goUp = async () => {
     try {
-      const publicKey = await connectWallet();
-      const txid = await sendSwapTransaction(
-        publicKey,
-        connection,
-        targetWalletAddress,
-        amountToTransfer
-      );
-      console.log("Transaction ID:", txid);
-      if (txid) {
-        playAudio();
-        setJackpotMode(true);
-      }
+      // const publicKey = await connectWallet();
+      // const txid = await sendSwapTransaction(
+      //   publicKey,
+      //   connection,
+      //   targetWalletAddress,
+      //   amountToTransfer
+      // );
+      // console.log("Transaction ID:", txid);
+      // if (txid) {
+
+      // }
+      playAudio();
+      setJackpotMode(true);
     } catch (error) {
       alert("accept transaction to make updot go up");
     }
