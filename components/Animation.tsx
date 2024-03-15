@@ -109,10 +109,22 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
     };
 
     const calculateLineAngle = (dotY: number, progress: number) => {
+      // Define the angle range for the non-jackpot mode
+      const startAngle = (-5 * Math.PI) / 12; // -75 degrees, the starting angle
+      const endAngle = -Math.PI / 6; // -45 degrees, the ending angle
+
+      // Calculate the normal angle based on dotY's position
+      // This interpolation calculates an angle that swings between startAngle and endAngle
       const normalAngle =
-        -Math.PI / 2 -
-        (-Math.PI / 4) * ((dotY - canvasHeight / 4) / (canvasHeight / 2));
-      const straightDownAngle = -Math.PI / 2;
+        startAngle +
+        (endAngle - startAngle) *
+          ((dotY - canvasHeight / 4) / (canvasHeight / 2));
+
+      // Define the straight down angle for the jackpot mode
+      const straightDownAngle = -Math.PI / 2; // -90 degrees
+
+      // Interpolate between the calculated normal angle and the straight down angle based on progress
+      // When progress = 0, it's entirely the normal angle; when progress = 1, it's straight down
       return normalAngle * (1 - progress) + straightDownAngle * progress;
     };
 
