@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Animation from "@/components/Animation";
 import Link from "next/link";
@@ -8,6 +8,17 @@ import { Connection, PublicKey } from "@solana/web3.js";
 // import { connectWallet, sendSwapTransaction } from "@/lib/solana";
 
 export default function Home() {
+  useEffect(() => {
+    function adjustVH() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    }
+    adjustVH();
+    window.addEventListener("resize", adjustVH);
+
+    // Cleanup function to remove the event listener
+    return () => window.removeEventListener("resize", adjustVH);
+  });
   const [publicKey, setPublicKey] = useState<PublicKey | null>(null);
 
   // Explicitly define the ref type as HTMLAudioElement | null
