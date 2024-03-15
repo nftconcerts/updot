@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +16,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <>
+      <Head>
+        <title>updot</title>
+        <meta name="description" content="make dot go up. it fun." />
+        <meta property="og:title" content="updot" />
+        <meta property="og:description" content="make dot go up. it fun" />
+        <meta
+          property="og:image"
+          content="https://updotsol.com/updot-share.jpg"
+        />
+        <meta name="twitter:title" content="updot" />
+        <meta name="twitter:description" content="make dot go up. it fun" />
+        <meta
+          name="twitter:image"
+          content="https://updotsol.com/updot-share.jpg"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <html lang="en">
+        <body className={inter.className}>{children}</body>
+      </html>
+    </>
   );
 }

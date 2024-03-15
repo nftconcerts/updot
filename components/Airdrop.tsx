@@ -36,7 +36,7 @@ const Airdrop = () => {
       title: "updot - make dot go up. it fun.",
       url: `https://updotsol.com`,
       text: `make the dot go up!`,
-      image: "https://updotsol.com/logo.png",
+      image: "https://updotsol.com/updot-share.jpg",
     };
     if (navigator["share"]) {
       try {
