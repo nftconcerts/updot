@@ -133,7 +133,7 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full z-0"
+      className="fixed inset-0 w-full h-screen z-0"
     ></canvas>
   );
 };
