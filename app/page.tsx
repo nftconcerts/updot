@@ -41,6 +41,8 @@ export default function Home() {
   const targetWalletAddress = "YOUR_TARGET_WALLET_ADDRESS";
   const amountToTransfer = 100000000; //.1 in sol
 
+  const [buttonClicked, setButtonClicked] = useState(false);
+
   const goUp = async () => {
     try {
       // const publicKey = await connectWallet();
@@ -56,6 +58,7 @@ export default function Home() {
       // }
       playAudio();
       setJackpotMode(true);
+      setButtonClicked(true);
     } catch (error) {
       alert("accept transaction to make updot go up");
     }
@@ -77,11 +80,12 @@ export default function Home() {
           >
             updot
           </h1>
+          {}
           <button
             className="text-[20px] font-bold cursor-pointer hover:opacity-80 "
             onClick={goUp}
           >
-            make go up
+            {(buttonClicked && "going up 3/20") || "make go up"}
           </button>
           {/* Hidden audio element */}
           <audio ref={audioRef} src="jackpot.mp3" preload="auto" />
