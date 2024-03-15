@@ -10,6 +10,7 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
   const requestIdRef = useRef<number>();
   const jackpotStartRef = useRef<number | null>(null);
   const lineOffsetRef = useRef<number>(0);
+  const horizontalLineOffsetRef = useRef<number>(3);
   const dotYRef = useRef<number>(0);
   const frameCountRef = useRef<number>(0);
   const easeInOutQuad = (t: any) =>
@@ -26,7 +27,7 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
     canvas.height = canvasHeight;
 
     let frameCount = 0;
-    const dotRadius = 5;
+    const dotRadius = 7;
     const gridLineCount = 20;
     let gridLineSpeed = 3;
     const maxSpeed = 300;
@@ -41,7 +42,10 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
       return { dotX, dotY: dotYRef.current };
     };
 
-    const drawBackground = (lineOffset: number) => {
+    const drawBackground = (
+      lineOffset: number,
+      horizontalLineOffset: number
+    ) => {
       ctx.fillStyle = "#1a1a1a";
       ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
@@ -53,6 +57,24 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(canvasWidth, y);
+        ctx.stroke();
+
+        if (i === 0) {
+          ctx.strokeStyle = "#777";
+          ctx.lineWidth = 5;
+          ctx.stroke();
+        }
+
+        // Adjusted calculation here for x
+        const x =
+          canvasWidth -
+          (((i * canvasWidth) / gridLineCount + horizontalLineOffset) %
+            canvasWidth);
+        ctx.strokeStyle = "#333333";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvasHeight);
         ctx.stroke();
 
         if (i === 0) {
@@ -119,12 +141,16 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
         progress = 0;
       }
 
-      lineOffsetRef.current += gridLineSpeed; // Update line offset based on current speed
+      lineOffsetRef.current += gridLineSpeed;
+      horizontalLineOffsetRef.current += 3; // Update line offset based on current speed
 
       const { dotX, dotY } = moveDotInSineWave();
-      const lineOffset = lineOffsetRef.current % canvasHeight; // Modulo to loop smoothly
+      const lineOffset = lineOffsetRef.current % canvasHeight;
 
-      drawBackground(lineOffset);
+      const horizontalLineOffset =
+        horizontalLineOffsetRef.current % canvasWidth; // Modulo to loop smoothly
+
+      drawBackground(lineOffset, horizontalLineOffset);
       drawLine({ dotX, dotY }, calculateLineAngle(dotY, progress));
       drawDot({ dotX, dotY });
 
