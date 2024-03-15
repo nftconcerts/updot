@@ -33,13 +33,16 @@ export default function RootLayout({
           content="https://updotsol.com/updot-share.jpg"
         />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, viewport-fit=cover useer-scalable=no"
-        />
+
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <html lang="en">
+        <head>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover useer-scalable=no"
+          />
+        </head>
         <body className={inter.className}>{children}</body>
       </html>
     </>
