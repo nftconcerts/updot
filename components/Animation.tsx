@@ -9,6 +9,11 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const requestIdRef = useRef<number>();
   const jackpotStartRef = useRef<number | null>(null);
+  const lineOffsetRef = useRef<number>(0);
+  const dotYRef = useRef<number>(0);
+  const frameCountRef = useRef<number>(0);
+  const easeInOutQuad = (t: any) =>
+    t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -27,12 +32,13 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
     const maxSpeed = 300;
 
     const moveDotInSineWave = () => {
-      const amplitude = canvasHeight / 4;
+      const amplitude = canvas.height / 4;
       const frequency = 0.01;
-      const dotX = canvasWidth / 2;
-      const dotY =
-        canvasHeight / 2 + amplitude * Math.sin(frameCount * frequency);
-      return { dotX, dotY };
+      const dotX = canvas.width / 2;
+      dotYRef.current =
+        canvas.height / 2 +
+        amplitude * Math.sin(frameCountRef.current * frequency);
+      return { dotX, dotY: dotYRef.current };
     };
 
     const drawBackground = (lineOffset: number) => {
@@ -94,12 +100,14 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
       if (jackpotMode) {
         if (jackpotStartRef.current === null) jackpotStartRef.current = now;
         const duration = now - jackpotStartRef.current;
-        if (duration <= 2000) {
-          progress = duration / 2000;
-        } else if (duration <= 4000) {
+        const phaseDuration = 2000; // Duration of each phase (start, full speed, end)
+        if (duration <= phaseDuration) {
+          progress = easeInOutQuad(duration / phaseDuration);
+        } else if (duration <= 2 * phaseDuration) {
           progress = 1;
-        } else if (duration <= 6000) {
-          progress = 1 - (duration - 4000) / 2000;
+        } else if (duration <= 3 * phaseDuration) {
+          progress =
+            1 - easeInOutQuad((duration - 2 * phaseDuration) / phaseDuration);
         } else {
           setJackpotMode(false);
           jackpotStartRef.current = null;
@@ -111,15 +119,16 @@ const Animation: React.FC<Props> = ({ jackpotMode, setJackpotMode }) => {
         progress = 0;
       }
 
+      lineOffsetRef.current += gridLineSpeed; // Update line offset based on current speed
+
       const { dotX, dotY } = moveDotInSineWave();
-      const lineOffset = frameCount * gridLineSpeed;
-      const lineAngle = calculateLineAngle(dotY, progress); // Updated to pass dotY and progress
+      const lineOffset = lineOffsetRef.current % canvasHeight; // Modulo to loop smoothly
 
       drawBackground(lineOffset);
-      drawLine({ dotX, dotY }, lineAngle);
+      drawLine({ dotX, dotY }, calculateLineAngle(dotY, progress));
       drawDot({ dotX, dotY });
 
-      frameCount++;
+      frameCountRef.current++;
       requestIdRef.current = requestAnimationFrame(animate);
     };
 
