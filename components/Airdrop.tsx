@@ -53,7 +53,6 @@ const Airdrop = () => {
 
   const submit = async (e: any) => {
     e.preventDefault();
-    setConfirmed(1);
     if (!tweet.startsWith("https://twitter.com")) {
       alert("Invalid tweet link - use https://twitter.com/... link");
       return;
@@ -64,7 +63,7 @@ const Airdrop = () => {
       );
       return;
     }
-
+    setConfirmed(1);
     try {
       const response = await fetch("/api/airdrop", {
         method: "POST",
