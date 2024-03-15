@@ -127,7 +127,11 @@ export default function Home() {
               >
                 <p className="p-6 text-green-600">tweeter</p>
               </Link>
-              <Link href="https://twitter.com/updotsol">
+              <Link
+                href="https://dexscreener.com/solana?rankBy=liquidity&order=desc&maxAge=1"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <p className="p-6 text-blue-800">dexscreener</p>
               </Link>
             </div>
