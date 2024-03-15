@@ -1,0 +1,36 @@
+{
+  "name": "updot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@dynamic-labs/ethereum": "^1.3.1",
+    "@dynamic-labs/sdk-react-core": "^1.3.1",
+    "@solana/web3.js": "^1.91.1",
+    "firebase": "^10.9.0",
+    "next": "14.1.3",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.3",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  },
+  "description": "it only goes up",
+  "main": "index.js",
+  "repository": "https://github.com/nftconcerts/updot.git",
+  "author": "Jimmy Dendrinos",
+  "license": "MIT"
+}
