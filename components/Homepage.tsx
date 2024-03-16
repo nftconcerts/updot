@@ -201,7 +201,6 @@ const Homepage = () => {
           </div>
         )}
       </div>
-      ;
     </>
   );
 };
