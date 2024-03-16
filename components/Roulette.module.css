@@ -1,0 +1,54 @@
+.roulette-wheel {
+  position: relative;
+  width: 64rem; /* Adjust size as needed */
+  height: 64rem;
+  border-radius: 50%;
+  border: 8px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.roulette-inner {
+  background-color: green;
+  border-radius: 50%;
+  position: relative;
+}
+
+.roulette-section {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% calc(100% - 50px); /* Pivot from the bottom center of the section */
+  height: 100px; /* or the height of your choice */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  /* Define the width of each section if necessary */
+  width: auto; /* Adjust as needed, or calculate based on the circumference of the inner wheel */
+}
+
+.roulette-ball {
+  width: 4rem;
+  height: 4rem;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  /* You might want to adjust the starting position of the ball */
+}
+
+/* Additional styles for button or other elements */
+.spin-button {
+  margin-top: 4rem;
+  padding: 1rem 2rem;
+  background-color: white;
+  color: gray;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: medium;
+  /* Adjust as needed for your design */
+}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import Roulette from "@/components/Roulette";
 
 function isValidSolanaAddress(address: string) {
   if (!address || address.length < 32 || address.length > 44) {
@@ -90,6 +91,7 @@ const Airdrop = () => {
 
   return (
     <div className="w-full flex flex-col items-center px-4">
+      {/* {confirmed == 0 && <Roulette />} */}
       {confirmed === 0 && (
         <div className="flex flex-col w-full items-center text-center">
           <p className="pt-6 flex w-full justify-center text-center">
